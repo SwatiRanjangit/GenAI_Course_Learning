@@ -8,11 +8,11 @@ message=pd.read_csv('C:\MyCode\PythonLearning\smaple.csv',sep='\t',names=['lable
 import re
 import nltk
 from nltk.corpus import stopwords
-#from nltk.stem.porter import PorterStemmer
-from nltk.stem import WordNetLemmatizer
-#corpus=[]
-#ps=PorterStemmer()
-'''
+from nltk.stem.porter import PorterStemmer
+#from nltk.stem import WordNetLemmatizer
+corpus=[]
+ps=PorterStemmer()
+
 for i in range(0,len(message)):
     review=re.sub('[^a-zA-Z]',' ',message['message'][i])
     review=review.lower()
@@ -37,13 +37,13 @@ x = cv.fit_transform(corpus).toarray()
 print(x)
 
 
-'''
+
 # BOW By using lemmatization
-lemmatizer = WordNetLemmatizer()
-corpus = []
+#lemmatizer = WordNetLemmatizer()
+#corpus = []
 
-from sklearn.feature_extraction.text import CountVectorizer
-
+#from sklearn.feature_extraction.text import CountVectorizer
+'''
 #for normal BOW
 cv=CountVectorizer(max_features=100)
 for i in range(len(message)):
@@ -55,11 +55,22 @@ for i in range(len(message)):
     cleaned = ' '.join(words)
     corpus.append(cleaned)
 
+
 print("Cleaned Corpus:")
 for line in corpus:
     print(line)
-    
+'''
+ 
 # for binary BOW
 cv=CountVectorizer(max_features=100,binary=True)
 x = cv.fit_transform(corpus).toarray()
-print(x)
+#print(x)
+
+
+# create Bag of word with N-Gram
+#from sklearn.feature_extraction.text import CountVectorizer
+
+#for binary BOW
+cv = CountVectorizer(max_features=50,binary=True,ngram_range=(1,2)) #bigram
+
+print(cv.vocabulary_)
